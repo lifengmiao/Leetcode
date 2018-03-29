@@ -13,17 +13,18 @@ public:
         if(indx==s.length()) {
             out.push_back(list.substr(1));
         }
-        if(canbreak[indx]==false) return;
+        if(canbreak[indx]==false) return; //add branch cast to pass time limit
         for(int i=indx;i<s.length();i++)
             if(mySet.find(s.substr(indx, i+1-indx))!=mySet.end()) {
                 dfs(s, i+1, list+" "+s.substr(indx, i+1-indx), out, mySet, canbreak);
             }
     }
     
-    vector<bool> canBreak(string s, set<string> mySet) {
-        vector<bool> dp(s.length()+1, false);
+    //For branch cast to pass time limit
+    vector<bool> canBreak(string s, set<string> mySet) { 
+        vector<bool> dp(s.length()+1, false); //dp[i] means if the substr[i:end] can be break
         dp[s.length()]=true;
-        for(int i=s.length()-1; i>=0; i--) {
+        for(int i=s.length()-1; i>=0; i--) { //from end to start
             for(int j=i+1; j<=s.length(); j++) {
                 if(dp[j] && mySet.find(s.substr(i,j-i))!=mySet.end()) {
                     dp[i] = true;
