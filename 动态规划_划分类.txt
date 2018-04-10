@@ -1,0 +1,32 @@
+https://mnmunknown.gitbooks.io/algorithm-notes/content/626,_dong_tai_gui_hua_ff0c_subarray_lei.html
+
+动态规划，subarray 划分类
+所谓 “划分类” DP，是指给定原数组之后，将其划分为 k 个子数组，使其 sum / product 最大 / 最小的 DP 类问题。
+
+Maximum Subarray
+
+input : [-1,5,6,-1,-2,4]
+iter0: max = -1, prev = sum[-1];
+iter1: max = 5,  prev = sum[5];
+iter2: max = 11, prev = sum[5,6];
+iter3: max = 11, prev = sum[5,6,-1];
+iter4: max = 11, prev = sum[5,6,-1,-2];
+iter5: max = 12, prev = sum[5,6,-1,-2,4]
+可以看到，在 kadane's algorithm 中，
+prev 相当于dp[i]，包含当前元素的最大sum，是local最优解；max是global最优解，每次迭代从local最优解更新。
+
+类似问题 Maximum Subarray, Maximum Subarray II, Minimum Subarray, Maximum Product Subarray
+
+Prefix sum 数组的 local / global 通用模板，求 min / max 皆可，使用时需要注意初始条件以及顺序；
+        int[] leftMax = new int[n]; //leftMax[i] 到i为止最大sum，可以不包括i，也即globalMax
+        int prefixSum = 0; //cumulated sum
+        int localMin = 0;// 代表从起始位置开始(包括起始位置），sum最小的连续数组
+        int globalMax = Integer.MIN_VALUE;
+        for(int i = 0; i < n; i++){
+            prefixSum += nums[i];
+            globalMax = Math.max(globalMax, prefixSum - localMin); //prefixSum-localMin 就是包括nums[i]的local最大sum；
+                                                                   //相当于前面算法的 cur = Math.max(nums[i], cur + nums[i]);
+            localMin = Math.min(localMin, prefixSum);
+
+            leftMax[i] = globalMax;
+        }
