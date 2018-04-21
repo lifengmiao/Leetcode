@@ -1,4 +1,5 @@
 /*
+http://www.lintcode.com/en/problem/backpack/
 dp[i][sum] = 前 i 个元素里我们能不能凑出来 sum.
 dp[i][sum] 要么取决于 dp[i - 1][sum] (不取当前元素)
 要么取决于 dp[i - 1][sum - nums[i]] (取当前元素)
