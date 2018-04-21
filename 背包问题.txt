@@ -1,0 +1,17 @@
+
+
+Case 1: 如果元素可以重复取，只用一维dp: Coin Change, Perfect Squares, Combination Sum IV
+        其中，如果求min/max， 不同的循环顺序都能保证正确答案: Coin Change, Perfect Squares
+        如果求 解的数量时，要以 target value （sum） 为外循环：Combination Sum IV
+Case 2: 如果元素不可以重复取， 需要两维dp: Backpack, Backpack II
+Case 3: 如果元素不可以重复取，而且对取的次数有限制，需要三维dp: K sum
+
+notes:
+只有对元素的选择(位置) / (数量)有限制性条件的 DP，才会需要另一个维度。
+对位置有要求的，用 i 代表“前 i 个元素”；
+对数量有要求的，用 j 代表“选 k 个元素”；
+两个全有要求的，就两个维度都加上去。
+两个维度都加上去，我们就有了 k sum 问题。
+
+https://mnmunknown.gitbooks.io/algorithm-notes/content/82ff0c_bei_bao_wen_ti.html
+
