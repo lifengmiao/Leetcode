@@ -23,36 +23,38 @@ LeetCode中为数不多的考图的难题。尽管题目看上去像字符串匹
 
 class Solution {
 public:
-    int ladderLength(string start, string end, unordered_set<string> &dict) {
-        dict.insert(end);
-        queue<pair<string,int>> q;
-        q.push(make_pair(start,1));
-        while(!q.empty()) {
-            string s = q.front().first;
-            int len = q.front().second;
-            if(s==end) return len;
-            q.pop();
-            vector<string> neighbors = findNeighbors(s, dict);
-            for(int i=0; i<neighbors.size(); i++) 
-                q.push(make_pair(neighbors[i],len+1));
+    int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
+        //wordList.push_back(endWord);
+        unordered_set<string> wordListSet(wordList.begin(), wordList.end());
+        queue<pair<string, int>> mQ;
+        mQ.push(make_pair(beginWord, 1));
+        while(!mQ.empty()) {
+            string curr = mQ.front().first;
+            int len = mQ.front().second;
+            if (curr==endWord)
+                return len;
+            mQ.pop();
+            vector<string> neighbers = findNeighbers(curr, wordListSet);
+            for(int j=0; j<neighbers.size(); j++) {
+                mQ.push(make_pair(neighbers[j], len+1));
+                wordListSet.erase(neighbers[j]);
+            }
         }
         return 0;
     }
     
-    vector<string> findNeighbors(string s, unordered_set<string> &dict) {
-        vector<string> ret;
-        for(int i=0; i<s.size(); i++) {
-            char c = s[i];
+    vector<string> findNeighbers(string s, unordered_set<string>& wordListSet) {
+        vector<string> out;
+        for(int i=0; i<s.length(); i++) {
+            char curr = s[i];
             for(int j=0; j<26; j++) {
-                if(c=='a'+j) continue;
-                s[i] = 'a'+j;
-                if(dict.count(s)) {
-                    ret.push_back(s);    
-                    dict.erase(s);    
-                }
+                if(curr==j+'a') continue;
+                s[i] = j+'a';
+                if(wordListSet.count(s))
+                    out.push_back(s);
             }
-            s[i] = c;
+            s[i] = curr;
         }
-        return ret;
+        return out;
     }
 };
