@@ -13,6 +13,15 @@ public:
             while(right>=left && nums[right]<=pivot) right--;
             if(left<right) swap(nums, left, right); //注意仅当left<right时才交换，如果left>right不需要交换
         }
+        /* another 2-way partition solution
+        while(left<=right) {
+            if(nums[left]>=pivot) left++;
+            else {
+                swap(nums, left, right);
+                right--;
+            }
+        }
+        */
         swap(nums, start, right);//把pivot放到正确位置，pivot左边都是大于pivot的值，pivot右边都是小于pivot的值
         if(k==right+1) {
             return nums[right];
