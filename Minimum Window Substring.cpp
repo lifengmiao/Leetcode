@@ -26,3 +26,42 @@ public:
         return dMin==INT_MAX? "":s.substr(head, dMin);
     }
 };
+
+//Another worse but straitforward solution
+//Java
+public class Solution {
+    public String minWindow(String s, String t) {
+        if(t.length() > s.length()) return "";
+
+        int[] window = new int[256];
+        int[] count = new int[256];
+
+        for(int i = 0; i < t.length(); i++){
+            count[t.charAt(i)] ++;
+        }
+
+        int j = 0;
+        int size = Integer.MAX_VALUE;
+        String rst = "";
+        for(int i = 0; i < s.length(); i++){
+            while(j < s.length() && !validWindow(t, window, count)){
+                window[s.charAt(j++)] ++;
+            }
+            if(j - i < size && validWindow(t, window, count)){
+                rst = s.substring(i, j);
+                size = j - i;
+            }
+            window[s.charAt(i)]--;
+        }
+
+        return rst;
+    }
+
+    private boolean validWindow(String t, int[] hash, int[] count){
+        for(int i = 0; i < 256; i++){
+            if(hash[i] < count[i]) return false;
+        }
+
+        return true;
+    }
+}
