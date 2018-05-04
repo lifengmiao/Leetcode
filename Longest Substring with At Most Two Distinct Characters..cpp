@@ -8,7 +8,7 @@ public:
         vector<int> hash(256,0);
         for(int i=0; i<s.length(); i++) {
             while(j<s.length()) {
-                if(curC==2 && hash[s[j]]==0) 
+                if(curC==2 && hash[s[j]]==0) //如果current count已经是2,即使有新的element加入也不要增加current cnt，因为如果增加，后面减不掉
                     break;
                 if(hash[s[j]]==0)
                     curC++;
