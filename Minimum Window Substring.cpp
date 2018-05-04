@@ -26,7 +26,43 @@ public:
         return dMin==INT_MAX? "":s.substr(head, dMin);
     }
 };
+//Samilar solution with better template .java
+//https://mnmunknown.gitbooks.io/algorithm-notes/content/614,_two_pointers,_shuang_zhi_zhen_ff0c_chuang_kou.html
+public class Solution {
+    public String minWindow(String s, String t) {
+        if(t == null || t.length() == 0 || t.length() > s.length()) 
+            return "";
+        int targetCount = t.length();
+        int curCount = 0;
+        int[] hash = new int[256];
+        preprocess(hash, t);
+        int j = 0;
+        String rst = "";
+        int minSize = Integer.MAX_VALUE;
 
+        for(int i = 0; i < s.length(); i++){
+            while(j < s.length() && curCount < targetCount){
+                hash[s.charAt(j)] --;
+                if(hash[s.charAt(j)] >= 0) curCount ++;
+                j ++;
+            }
+            if(curCount >= targetCount && j - i < minSize){
+                minSize = j - i;
+                rst = s.substring(i, j);
+            }
+            hash[s.charAt(i)] ++;
+            if(hash[s.charAt(i)] > 0) curCount --;
+        }
+
+        return rst;
+    }
+
+    private void preprocess(int[] hash, String t){
+        for(int i = 0; i < t.length(); i++){
+            hash[t.charAt(i)] ++;
+        }
+    }
+}
 //Another worse but straitforward solution
 //Java
 public class Solution {
