@@ -9,6 +9,7 @@
 1. hashmap， 保存key和对象位置的映射
 
 2. list，保存对象新旧程度的序列。不一定是list，也可以用vector，不过list的好处是已经实现了头尾操作的api，vector的话，还要自己写，麻烦。
+   list api: list.push_front(element), list.pop_back(), list.erase(iterator)
 */
 
 class LRUCache {
