@@ -1,52 +1,49 @@
-public class Solution {
-    public List<String> removeInvalidParentheses(String s) {
-        Set<String> set = new HashSet<>();
-
-        int leftCount = 0;
-        int rightCount = 0;
-        int openCount = 0;
-
-        for(int i = 0; i < s.length(); i++){
-            if(s.charAt(i) == '(') leftCount++;
-            if(s.charAt(i) == ')'){
-                if(leftCount > 0) leftCount--;
-                else rightCount ++;
-            }
+class Solution {
+public:
+    vector<string> removeInvalidParentheses(string s) {
+        int n = s.length();
+        int leftcnt=0;
+        int rightcnt = 0;
+        int opencnt = 0;
+        for(int i=0; i<n; i++) {
+            if(s[i]=='(')
+                leftcnt ++;
+            else if(s[i]==')')
+                if(leftcnt>0) leftcnt--;
+                else
+                    rightcnt++;
         }
-
-        dfs(set, s, 0, leftCount, rightCount, openCount, new StringBuilder());
-
-        return new ArrayList<String>(set);
+        set<string> rst;
+        string list;
+        dfs(s, 0, leftcnt, rightcnt, opencnt, list, rst);
+        return vector<string>(rst.begin(), rst.end());
     }
-
-    private void dfs(Set<String> set, String str, int index, int leftCount, 
-                     int rightCount, int openCount, StringBuilder sb){
-        if(index == str.length() && leftCount == 0 && rightCount == 0 && openCount == 0){
-            set.add(sb.toString());
+    
+    void dfs(string& s, int indx, int leftcnt, int rightcnt, int opencnt, string& list, set<string>& rst) {
+        
+        if(indx==s.length()&&leftcnt==0&&rightcnt==0&&opencnt==0) {
+            rst.insert(list);
             return;
         }
-
-        if(index == str.length() || leftCount < 0 || rightCount < 0 || openCount < 0) return;
-
-        char chr = str.charAt(index);
-        int len = sb.length();
-
-        if(chr == '('){
-            // Remove current '('
-            dfs(set, str, index + 1, leftCount - 1, rightCount, openCount, sb);
-            // Keep current '('
-            dfs(set, str, index + 1, leftCount, rightCount, openCount + 1, sb.append(chr));
-        } else if(chr == ')'){
-            // Remove current ')' 
-            dfs(set, str, index + 1, leftCount, rightCount - 1, openCount, sb);
-            // Keep current ')'
-            dfs(set, str, index + 1, leftCount, rightCount, openCount - 1, sb.append(chr));
-        } else {
-            // Just keep the character
-            dfs(set, str, index + 1, leftCount, rightCount, openCount, sb.append(chr));
+        if(indx==s.length()||leftcnt<0||rightcnt<0||opencnt<0) 
+            return;
+        
+        int len =list.length();
+        if(s[indx]=='(') {
+            dfs(s, indx+1, leftcnt-1,rightcnt, opencnt,list,rst);
+            list += '(';
+            dfs(s, indx+1, leftcnt, rightcnt, opencnt+1, list, rst);
         }
-
-        // Back-tracking
-        sb.setLength(len);
+        else if(s[indx]==')') {
+            dfs(s, indx+1, leftcnt,rightcnt-1, opencnt,list,rst);
+            list += ')';
+            dfs(s, indx+1, leftcnt, rightcnt, opencnt-1, list, rst);
+        }
+        else {
+            list += s[indx];
+            dfs(s, indx+1, leftcnt, rightcnt, opencnt, list, rst);
+        }
+            
+        list = list.substr(0,len);  
     }
-}
+};
