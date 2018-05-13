@@ -1,4 +1,35 @@
 /*
+use Inorder traversel template
+*/
+
+class BSTIterator {
+public:
+    BSTIterator(TreeNode *root) {
+        mCur = root;
+    }
+
+    /** @return whether we have a next smallest number */
+    bool hasNext() {
+        return (mCur!=NULL || !mS.empty());
+    }
+
+    /** @return the next smallest number */
+    int next() {
+        while(mCur) {
+            mS.push(mCur);
+            mCur = mCur->left;
+        }
+        TreeNode *node = mS.top();
+        mS.pop();
+        mCur = node->right;
+        return node->val;
+    }
+private:
+    stack<TreeNode*> mS;
+    TreeNode* mCur;
+};
+
+/*
 I use Stack to store directed left children from root.
 When next() be called, I just pop one element and process its right child as new root.
 The code is pretty straightforward.
