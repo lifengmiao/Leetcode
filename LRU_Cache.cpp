@@ -54,7 +54,7 @@ private:
     
     void moveTohead(int key) {
         CacheEntry Entry_tmp = *m_map[key];
-        m_LRU_cache.erase(m_map[key]); // list.erase(iterator)
+        m_LRU_cache.erase(m_map[key]); // hashmap存iterator是为了这里删除element时方便；
         m_LRU_cache.push_front(Entry_tmp);
         m_map[key] = m_LRU_cache.begin();
     }
