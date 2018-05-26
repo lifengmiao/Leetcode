@@ -1,0 +1,30 @@
+dfs不一定都是上来给返回条件，返回。有时可以遍历完所有情况后，最后返回。比如flip game II
+class Solution {
+public:
+    bool canWin(string s) {
+        if(s.length()==0) return false;
+        map<string, bool> hash;
+        return memorizedSearch(s, hash);
+    }
+    
+    bool memorizedSearch(string currState, map<string, bool> hash) {
+        if(hash.find(currState)!=hash.end())
+            return hash[currState];
+        bool canWin = false;
+        for(int i=0; i<currState.length()-1;i++){
+            if(currState[i]=='+' && currState[i+1]=='+') {
+                currState[i]='-';
+                currState[i+1]='-';
+                bool rst = memorizedSearch(currState, hash);
+                if(rst==false) {
+                    canWin = true;
+                    break;
+                }
+                currState[i]='+';
+                currState[i+1]='+';
+            }
+        }
+        hash[currState] = canWin;
+        return canWin;
+    }
+};
