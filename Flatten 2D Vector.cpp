@@ -1,4 +1,33 @@
+/*
+self
+*/
+class Vector2D {
+public:
+    Vector2D(vector<vector<int>>& vec2d) {
+        for(int i=vec2d.size()-1; i>=0; i--) {
+            if(!vec2d[i].empty())
+                mStack.push(make_pair(vec2d[i].begin(), vec2d[i].end()));
+        }
+    }
 
+    int next() {
+        auto it = mStack.top();
+        mStack.pop();
+        if(it.first+1<it.second) {
+            mStack.push(make_pair(it.first+1, it.second));
+        }
+        return *it.first;
+    }
+
+    bool hasNext() {
+        return !mStack.empty();
+    }
+private:
+    stack<pair<vector<int>::iterator, vector<int>::iterator>> mStack;
+};
+
+/*
+*/
 class Vector2D {
 public:
     Vector2D(vector<vector<int>>& vec2d) {
