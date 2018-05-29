@@ -27,7 +27,7 @@ public:
         if (len > n) return res;
         if (len >= m) ++res;
         visited[num] = true;
-        for (int next = 1; next <= 9; ++next) {
+        for (int next = 1; next <= 9; ++next) { //下一步可走的位置和当前位置相关，所以dfs中要传当前位置num
             int jump = jumps[num][next];
             if (!visited[next] && (jump == 0 || visited[jump])) {
                 res = helper(next, len+1, res, m, n, jumps, visited);
