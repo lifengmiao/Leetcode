@@ -1,3 +1,9 @@
+/*
+dfs 返回local最值，global最值由local最值组成
+local最值：包含当前节点的最值
+global最值：可以包含或者不包含当前节点
+*/
+
 class Solution {
 public:
     int longestUnivaluePath(TreeNode* root) {
