@@ -6,7 +6,7 @@ public:
     vector<int> numIslands2(int m, int n, vector<pair<int, int>>& positions) {
         vector<int> res;
         int cnt = 0;
-        vector<int> roots(m * n, -1);
+        vector<int> roots(m * n, -1); //一般来说用hashmap存group信息，本题因为元素数量一定m*n，所以可以用固定size数组
         vector<vector<int>> dirs{{0, -1}, {-1, 0}, {0, 1}, {1, 0}};
         for (auto a : positions) {
             int id = n * a.first + a.second;
