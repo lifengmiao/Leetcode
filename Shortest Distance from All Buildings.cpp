@@ -32,10 +32,10 @@ public:
                             int x = a + dirs[k][0], y = b + dirs[k][1];
                             if (x >= 0 && x < m && y >= 0 && y < n && grid[x][y] == val) {
                                 --grid[x][y]; //only change original '0', don't change original '1', so it doesn't effect dist
-                                dist[x][y] = dist[a][b] + 1;
-                                sum[x][y] += dist[x][y] - 1;
+                                dist[x][y] = dist[a][b] + 1; //local的最值 （for one building）
+                                sum[x][y] += dist[x][y] - 1; //global的最值 (for all buildings)
                                 q.push({x, y});
-                                res = min(res, sum[x][y]);
+                                res = min(res, sum[x][y]); //前几次其实没有用，因为每次新的building会reset to INFI, 只有最后一次才是最终结果
                                 cout<<"x="<<x<<"y="<<y<<"sum="<<sum[x][y]<<"res="<<res<<endl;
                             }
                         }
