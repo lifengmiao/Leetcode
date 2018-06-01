@@ -1,3 +1,9 @@
+1.
+二维dfs两种方式：
+    a.有特定的起始点或终点，从这些特殊点开始往周围的点遍历，dp存起点到当前点的最小距离，即使只有一个起点，dp在某一点的值也会不断更新，所以有些情况不适合，比如Shortest Distance from All Buildings。 这种dfs没有返回值。例子有：Walls and Gates， The Maze II， Shortest Distance from All Buildings
+    b. 没有特定的起点或终点，从任意点开始往周围的点遍历，dp存从当前点开始到结束点的最长或最短距离，注意与前面case的区别，一个存从起点到当前点的最值距离，一个存从当前点到结束点的最值距离。这种dfs需要返回值，当前点的值（也即返回值）由其周围点的返回值决定。例子有：Longest Increasing Path in a Matrix
+
+2.
 dfs不一定都是上来给返回条件，返回。有时可以遍历完所有情况后，最后返回。比如flip game II
 class Solution {
 public:
