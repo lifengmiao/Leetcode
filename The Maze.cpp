@@ -1,4 +1,35 @@
 /*
+改进： 没有必要记录中间结果，因为只有一个start point. 只要能到终点，一路返回。只要还在maze中证明还没有到过终点。 所以只要到之前访问过的点返回false
+不可能遇到：到之前访问过的点，结果为true的情况
+*/
+class Solution {
+public:
+    bool hasPath(vector<vector<int>>& maze, vector<int>& start, vector<int>& destination) {
+        int m=maze.size();
+        int n =maze[0].size();
+        vector<vector<bool>> visit(m, vector<bool>(n,false));
+        return dfs(maze, start, destination, visit);
+    }
+    
+    bool dfs(vector<vector<int>>& maze, vector<int> start, vector<int>& destination, vector<vector<bool>>& visit) {
+        if(visit[start[0]][start[1]]==true) return false;
+        if(start[0]==destination[0] && start[1]==destination[1]) return true;
+        visit[start[0]][start[1]]=true;
+        int r = start[1]+1, l = start[1]-1, u=start[0]-1, d=start[0]+1;
+        int m = maze.size(), n = maze[0].size();
+        while(u>=0 && maze[u][start[1]]!=1) u--;
+        if(dfs(maze, vector<int>{u+1,start[1]}, destination, visit)) return true;
+        while(d<m && maze[d][start[1]]!=1) d++;
+        if(dfs(maze, vector<int>{d-1,start[1]}, destination, visit)) return true;
+        while(l>=0 && maze[start[0]][l]!=1) l--;
+        if(dfs(maze, vector<int>{start[0],l+1}, destination, visit)) return true;
+        while(r<n && maze[start[0]][r]!=1) r++;
+        if(dfs(maze, vector<int>{start[0],r-1}, destination, visit)) return true;
+        return false;
+    }
+};
+
+/*
 这道题让我们遍历迷宫，但是与以往不同的是，这次迷宫是有一个滚动的小球，这样就不是每次只走一步了，
 而是朝某一个方向一直滚，直到遇到墙或者边缘才停下来，我记得貌似之前在手机上玩过类似的游戏。
 那么其实还是要用DFS或者BFS来解，只不过需要做一些修改。先来看DFS的解法，我们用DFS的同时最好能用上优化，
