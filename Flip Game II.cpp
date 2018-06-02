@@ -20,7 +20,8 @@ public:
                 currState[i]='-';
                 currState[i+1]='-';
                 bool rst = memorizedSearch(currState, hash);
-                if(rst==false) {
+                if(rst==false) { //只有对手输的情况下break,如果对手在这种state下会赢继续循环，因为我们并不一定会输，我们就换一种移动方式，
+                                 //只有当在所有的移动方式下对手都会赢得情况下，也就是整个循环结束，才确定我们会输
                     canWin = true;
                     break;
                 }
