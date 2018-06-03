@@ -3,7 +3,7 @@ class Solution {
 public:
     vector<int> maxSlidingWindow(vector<int>& nums, int k) {
         vector<int> res;
-        deque<int> q; //只存window中 需要存的元素
+        deque<int> q; //存的是元素的indx，不是元素本身，只存window中需要存的元素的indx
         for (int i = 0; i < nums.size(); ++i) {
             if (!q.empty() && q.front() == i - k) //超出window，remove one element
                 q.pop_front();
