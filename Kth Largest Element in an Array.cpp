@@ -38,3 +38,44 @@ public:
         nums[b] = tmp;
     }
 };
+//3 ways
+class Solution {
+public:
+    int findKthLargest(vector<int>& nums, int k) {
+        return partition(nums, k, 0, nums.size()-1);
+    }
+    
+    int partition(vector<int>& nums, int k, int start, int end) {
+        int pivot = nums[start];
+        int left = start;
+        int right = end;
+        int cur = start;
+        while(cur<=right) {
+            if(nums[cur]>pivot) {
+                swap(nums, left, cur);
+                left++;
+                cur++;
+            }
+            else if(nums[cur]<pivot) {
+                swap(nums, right, cur);
+                right--;
+            }
+            else
+                cur++;
+        }
+        
+        if(k==right+1) {
+            return nums[right];
+        }
+        if(k>right+1)
+            return partition(nums, k, right+1, end);
+        else
+            return partition(nums, k, start, right-1);
+    }
+    
+    void swap(vector<int>& nums, int a, int b) {
+        int tmp = nums[a];
+        nums[a] = nums[b];
+        nums[b] = tmp;
+    }
+};
