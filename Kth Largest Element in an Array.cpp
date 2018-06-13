@@ -1,3 +1,7 @@
+/*
+3 way 只有cur 和 right交换的时候，cur不动, 其他时候cur++
+*/
+//2 way
 class Solution {
 public:
     int findKthLargest(vector<int>& nums, int k) {
