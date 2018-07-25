@@ -1,3 +1,5 @@
+//Notes: hashmap 建立old node和new node之间的联系，扫到一个old node，如果有对应的new node，说明clone过，直接用。
+
 //DFS
 class Solution {
 public:
@@ -18,7 +20,7 @@ public:
         return new_node;
     }
 };
-//BFS
+//BFS 先建立新旧联系，再入queue
 class Solution {
 public:
     UndirectedGraphNode *cloneGraph(UndirectedGraphNode *node) {
