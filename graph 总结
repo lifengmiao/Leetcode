@@ -23,3 +23,8 @@
  
  2. BFS：整个遍历完成后，如果仍有入度不为0的节点，说明有环； 
  
+ 遍历有环的graph：Reconstruct Itinerary 每访问一个neighbor把其从neighbors中删除，出度为0，加入result
+ 遍历无环的graph：Alien Dictionary 使用拓扑排序，BFS，关键是入度
+ 判断是否有环：Course Schedule DFS 和 BFS
+ 有环的graph找边：Evaluate Division 遇到环跳过 DFS
+ 
