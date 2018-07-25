@@ -29,12 +29,12 @@ public:
             rst.push_back(cur);
             return;
         }
+        visit.insert(start); //start been visited, not cur_str!!!!!!!
         for(auto it:graph[start]) {
             string cur_str = it.first;
             if(visit.find(cur_str)!=visit.end()) continue;
-            visit.insert(start); //start been visited, not cur_str!!!!!!!
             dfs(graph, cur_str, end, visit, rst, cur*it.second);
-            visit.erase(start);
         }
+        visit.erase(start);
     }
 };
