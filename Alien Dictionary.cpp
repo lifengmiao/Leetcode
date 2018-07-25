@@ -36,8 +36,8 @@ public:
         }
         while (!q.empty()) {
             char c = q.front(); q.pop();
-            for (auto a : s) {
-                if (a.first == c) {
+            for (auto a : s) { //遍历所有边；本题没有建立graph的node数据结构，所以不是带着node循环，而是带着所有“边”循环
+                if (a.first == c) {//找到以c开头的边
                     --in[a.second]; //root的child节点，root排除后，轮到child节点，所以child节点入度减一
                     if (in[a.second] == 0) {//可能有多个节点（root）指向该节点，只有当所有root都clear后，此节点才能入queue
                         q.push(a.second);
