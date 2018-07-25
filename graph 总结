@@ -1,0 +1,25 @@
+表示graph的方法：
+1. 带neighbor的node： UndirectedGraphNode* node
+ struct UndirectedGraphNode {
+     int label;
+     vector<UndirectedGraphNode *> neighbors;
+     UndirectedGraphNode(int x) : label(x) {};
+ };
+ 
+ 2. graph的所有边：set<pair<char, char>> edges; vector<pair<int, int>> edges
+ 
+ 3. graph的所有链接：
+    unordered_map<char, vector<char>> graph; 
+    vector<vector<int>> graph(numCourses, vector<int>);
+    unordered_map<string, multiset<string>> m; //用multiset，可以自动排序
+    所有链接可以由所有边生成：
+    for (auto a : edges) {
+            graph[a.first].push_back(a.second); 
+        }
+        
+ 检查是否有环：
+ 1. DFS：用visit三个状态表示 0－－未访问；1－－已访问；－1－－正在访问
+ 当前访问节点 visit＝－1， 如果深层访问节点 visit＝＝－1，说明回到祖先节点，有环
+ 
+ 2. BFS：整个遍历完成后，如果仍有入度不为0的节点，说明有环； 
+ 
