@@ -1,0 +1,19 @@
+class Solution {
+public:
+    UndirectedGraphNode *cloneGraph(UndirectedGraphNode *node) {
+        unordered_map<int, UndirectedGraphNode*> Map;
+        return clone(node, Map);
+    }
+    
+    UndirectedGraphNode* clone(UndirectedGraphNode *node, unordered_map<int, UndirectedGraphNode*>& Map) {
+        if(!node) return NULL;
+        if(Map.count(node->label)) return Map[node->label];
+        UndirectedGraphNode* new_node = new UndirectedGraphNode(node->label);
+        Map[node->label] = new_node;
+        for(int i=0; i<node->neighbors.size(); i++) {
+            UndirectedGraphNode* new_neighbor = clone(node->neighbors[i], Map);
+            (new_node->neighbors).push_back(new_neighbor);
+        }
+        return new_node;
+    }
+};
