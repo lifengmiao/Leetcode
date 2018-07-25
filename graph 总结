@@ -28,3 +28,10 @@
  判断是否有环：Course Schedule DFS 和 BFS
  有环的graph找边：Evaluate Division 遇到环跳过 DFS
  
+无向图检查全联通和是否有环：Graph Valid Tree
+1. DFS：可以从任意点起始，因为如果全联通，从任何点开始都能遍历所有点。需要pre表示前一个访问的点，确保不走回头路。注意和course schedule的不同，course 
+schedule不要求全联通，只要没门课都能完成就好，可以有多个不相连接tree， 所以必须扫描每一个点作为起始点；而graph valid tree只需扫描一个点
+
+2. BFS：遍历到一个neighbor需要把从neighbor返回当前节点的edge删除
+
+3. UF：遍历每条边，如果其root相同，说明之前存在链接，现在又链接，所以有环；如果不相同，把其root链接
