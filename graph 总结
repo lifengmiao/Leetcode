@@ -1,3 +1,12 @@
+图的遍历：
+1. 全联通图 vs 非全联通图
+对于全联通图，dfs可以任意起点；对于非全联通图，dfs要遍历所有点作为起点（course schdule）
+2. 判断有环
+建立visit，dfs每进一个点，先看visit［i］是否为 1，如果为1，说明有环；如果不是1， visit［i］付值1，遍历i的neighbors
+3. 判断全联通
+dfs从任意一点出发，用visit记录每个点的访问与否，最后过一遍visit，如果有没有访问的点，即非全通
+
+
 表示graph的方法：
 1. 带neighbor的node： UndirectedGraphNode* node
  struct UndirectedGraphNode {
@@ -36,3 +45,10 @@ schedule不要求全联通，只要没门课都能完成就好，可以有多个
 2. BFS：遍历到一个neighbor需要把从neighbor返回当前节点的edge删除
 
 3. UF：遍历每条边，如果其root相同，说明之前存在链接，现在又链接，所以有环；如果不相同，把其root链接
+
+
+带weight的有向图，从起点到终点最短距离：Network Delay Time
+1. BFS： 用vector<int> distance存从起点到每个点的距离，每次扫描到该点，更新此距离。注意和Evaluate Division的区别，后者不需要用vector存distance，
+         以为任意路径到该点的distance（除法结果）都一样，所以用一个值存就可以了。
+         每一层存一个visit，避免重复加点到queue中
+         
