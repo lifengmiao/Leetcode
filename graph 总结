@@ -3,6 +3,7 @@
 对于全联通图，dfs可以任意起点；对于非全联通图，dfs要遍历所有点作为起点（course schdule）
 2. 判断有环
 建立visit，dfs每进一个点，先看visit［i］是否为 1，如果为1，说明有环；如果不是1， visit［i］付值1，遍历i的neighbors
+对于BFS，在遍历neighbors的时候检查是否visit，如果这个neighbor被visit过，不进入queue
 3. 判断全联通
 dfs从任意一点出发，用visit记录每个点的访问与否，最后过一遍visit，如果有没有访问的点，即非全通
 
