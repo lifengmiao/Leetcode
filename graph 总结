@@ -17,16 +17,17 @@
             graph[a.first].push_back(a.second); 
         }
         
- 检查是否有环：
+ 有向图检查是否有环：
  1. DFS：用visit三个状态表示 0－－未访问；1－－已访问；－1－－正在访问
  当前访问节点 visit＝－1， 如果深层访问节点 visit＝＝－1，说明回到祖先节点，有环
  
  2. BFS：整个遍历完成后，如果仍有入度不为0的节点，说明有环； 
  
- 遍历有环的graph：Reconstruct Itinerary 每访问一个neighbor把其从neighbors中删除，出度为0，加入result
- 遍历无环的graph：Alien Dictionary 使用拓扑排序，BFS，关键是入度
- 判断是否有环：Course Schedule DFS 和 BFS
- 有环的graph找边：Evaluate Division 遇到环跳过 DFS
+ 遍历边：有环的graph：Reconstruct Itinerary 每访问一个neighbor把其从neighbors中删除，出度为0，加入result
+ 
+ 遍历点：无环的graph：Alien Dictionary 使用拓扑排序，BFS，关键是入度
+  
+        有环的graph：Evaluate Division 遇到环跳过 DFS
  
 无向图检查全联通和是否有环：Graph Valid Tree
 1. DFS：可以从任意点起始，因为如果全联通，从任何点开始都能遍历所有点。需要pre表示前一个访问的点，确保不走回头路。注意和course schedule的不同，course 
