@@ -15,26 +15,26 @@ public:
             string start = it.first, end = it.second;
             if(!graph.count(start) || !graph.count(end)) rst.push_back(-1.0);
             else {
-                int preLen = rst.size();
                 unordered_set<string> visit;//for each item in queries, clear visit
-                dfs(graph, start, end, visit, rst, 1.0);
-                if (rst.size()==preLen) rst.push_back(-1.0); //every item should have one result, even can't solve
+                if(!dfs(graph, start, end, visit, rst, 1.0))
+                    rst.push_back(-1.0); //every item should have one result, even can't solve
             }
         }
         return rst;
     }
     
-    void dfs(unordered_map<string, unordered_map<string, double>>& graph, string start, string end, unordered_set<string>& visit, vector<double>& rst, double cur) {
+    bool dfs(unordered_map<string, unordered_map<string, double>>& graph, string start, string end, unordered_set<string>& visit, vector<double>& rst, double cur) {
         if(start==end) {
             rst.push_back(cur);
-            return;
+            return true;
         }
-        visit.insert(start); //start been visited, not cur_str!!!!!!!
+        if(visit.count(start)) return false;
+        visit.insert(start); 
         for(auto it:graph[start]) {
             string cur_str = it.first;
-            if(visit.find(cur_str)!=visit.end()) continue;
-            dfs(graph, cur_str, end, visit, rst, cur*it.second);
+            if(dfs(graph, cur_str, end, visit, rst, cur*it.second))
+                return true;
         }
-        visit.erase(start);
+        return false;
     }
 };
