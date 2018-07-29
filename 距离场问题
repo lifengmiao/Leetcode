@@ -1,0 +1,5 @@
+Walls and Gates
+01 Matrix
+Shortest Distance from All Buildings
+
+从距离为0（起点）的所有点出发，BFS遍历。先把距离为0的所有点加入queue，如果某点的距离场值大于将要付的值，加入queue，否则跳过。
