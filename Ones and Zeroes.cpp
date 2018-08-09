@@ -1,5 +1,6 @@
 //背包问题
 //循环顺序有变，之前对于dp[i][j]遍历所有选择，本题是对于一个特定选择 strs[i]， 更新所有dp[i][j]
+//注意更新顺序是从后向前，避免多次使用同一元素！！！！如果从前向后（一般DP都是从前向后），会多次使用同一元素
 class Solution {
 public:
     int findMaxForm(vector<string>& strs, int m, int n) {
@@ -7,8 +8,8 @@ public:
         for (string str : strs) {
             int zeros = 0, ones = 0;
             for (char c : str) (c == '0') ? ++zeros : ++ones;
-            for (int i = m; i >= zeros; --i) {
-                for (int j = n; j >= ones; --j) {
+            for (int i = m; i >= zeros; --i) {//更新顺序从后向前
+                for (int j = n; j >= ones; --j) {//更新顺序从后向前
                     dp[i][j] = max(dp[i][j], dp[i - zeros][j - ones] + 1);
                 }
             }
