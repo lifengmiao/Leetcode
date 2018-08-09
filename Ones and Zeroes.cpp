@@ -18,14 +18,12 @@ public:
 };
 
 
-//self Wrong
+//self TLE
 class Solution {
 public:
     int findMaxForm(vector<string>& strs, int m, int n) {
-        vector<bool> visit(strs.size(), false);
         vector<int> cnt0(strs.size(),0);
         vector<int> cnt1(strs.size(),0);
-        
         for(int i=0; i<strs.size(); i++) {
             for(int j=0; j<strs[i].length(); j++) {
                 if(strs[i][j]=='0')
@@ -35,25 +33,18 @@ public:
             }
         }
         int res = 0;
-        dfs(0, strs, m, n, visit, 0, res, cnt0, cnt1);
+        res = dfs(0, strs, m, n, cnt0, cnt1);
         return res;
     }
     
-    void dfs(int start, vector<string>& strs, int m, int n, vector<bool>& visit, int cnt, int& res, vector<int>& cnt0, vector<int>& cnt1) {
-        if(m==0 && n==0) {
-            res = max(res, cnt);
-            return;
+    int dfs(int start, vector<string>& strs, int m, int n, vector<int>& cnt0, vector<int>& cnt1) {
+        if((m==0 && n==0) || start==strs.size()) {
+            return 0;
         }
-        if(m<0 || n<0) {
-            res = max(res, cnt-1);
-            return;
-        }
-        for(int i=start; i<strs.size();i++) {
-            if(visit[i]==true) continue;
-            visit[i]=true;
-            // if(m>=cnt0[i] && n>=cnt1[i])
-                dfs(i+1, strs, m-cnt0[i], n-cnt1[i], visit, cnt+1, res, cnt0, cnt1);
-            visit[i]=false;
-        }
+        int use =0;
+        if (m-cnt0[start]>=0 && n-cnt1[start]>=0)
+            use = dfs(start+1, strs, m-cnt0[start], n-cnt1[start], cnt0, cnt1)+1;
+        int notuse = dfs(start+1, strs, m, n, cnt0, cnt1);
+        return max(use, notuse);
     }
 };
