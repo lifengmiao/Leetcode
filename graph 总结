@@ -1,3 +1,7 @@
+用UF在有向图里找环，需要首先遍历所有node，找到入度为2的node，删除入度为二的node的一条边。然后再UF。否则出错。见例题 Redundant Connection II，其中一步
+edge[1] = 0; 就是删除入度为2的node的一条边
+
+
 图的遍历：
 1. 全联通图 vs 非全联通图
 对于全联通图，dfs可以任意起点；对于非全联通图，dfs要遍历所有点作为起点（course schdule）
